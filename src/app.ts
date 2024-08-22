@@ -1,4 +1,6 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response, NextFunction } from "express";
+import userRouter from "./routes/userRoutes";
+import adminRouter from "./routes/adminRoutes";
 
 const app: Application = express();
 
@@ -6,12 +8,13 @@ const app: Application = express();
 app.use(express.json());
 
 // Routes
-app.use('/api', require('./routes'));
+app.use("/api", userRouter);
+app.use("/api/admin", adminRouter);
 
 // Error handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 
 export default app;
