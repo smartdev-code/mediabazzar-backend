@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET || "SMARTDEV-CODE";
 
 export const userAuthMiddleware = (
   req: Request,
@@ -22,6 +22,7 @@ export const userAuthMiddleware = (
       res.status(403).json({ message: "Not authorized as a user" });
     }
   } catch (error) {
+    console.log(error);
     res.status(401).json({ message: "Invalid token" });
   }
 };

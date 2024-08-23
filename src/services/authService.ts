@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { User, IUser } from "../models/userModel";
 import { Admin, IAdmin } from "../models/adminModel";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+const JWT_SECRET = process.env.JWT_SECRET || "SMARTDEV-CODE";
 
 export const registerUser = async (
   name: string,
@@ -28,12 +28,17 @@ export const registerAdmin = async (
 export const loginUser = async (
   email: string,
   password: string
-): Promise<string | null> => {
+): Promise<any | null> => {
   const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password, user.password))) {
-    return jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const userWithoutPassword: any = user.toObject();
+    delete userWithoutPassword.password;
+    return {
+      user: userWithoutPassword,
+      token: jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
+        expiresIn: "1h",
+      }),
+    };
   }
   return null;
 };
