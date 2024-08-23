@@ -1,7 +1,7 @@
 {
-    "watch": ["src"],
-    "ext": "ts,tsx,json",
-    "ignore": ["src/public/*"],
-    "exec": "ts-node src/app.ts"
-  }
-  
+  "watch": [
+    "src"
+  ],
+  "ext": "ts,tsx,json",
+  "exec": "ts-node server.ts"
+}

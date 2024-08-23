@@ -6,12 +6,12 @@ import { Admin, IAdmin } from "../models/adminModel";
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 export const registerUser = async (
-  username: string,
+  name: string,
   email: string,
   password: string
 ): Promise<IUser> => {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ username, email, password: hashedPassword });
+  const user = new User({ name, email, password: hashedPassword });
   return user.save();
 };
 
